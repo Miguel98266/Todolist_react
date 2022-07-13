@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import InputValue from "./InputValue";
-import Button from "./Button";
+import InputValue from "../../Shared/InputValue";
+import Button from "../../Shared/Button";
 export default class Form extends Component {
   render() {
     return (
@@ -11,6 +11,7 @@ export default class Form extends Component {
             placeholderInput={this.props.placeholderInput}
             handleValue={this.props.handleValue}
             nameError={this.props.nameError}
+            valueinput={this.props.valueinput}
           />
         </div>
         <div className="col-md-3">

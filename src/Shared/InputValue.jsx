@@ -7,8 +7,10 @@ export default class InputValue extends Component {
             <input
             type={this.props.type}
             className="form-control"
+            value={this.props.valueinput}
             placeholder={this.props.placeholderInput}
-            onChange={(e) => this.props.handleValue(e.target.value)}
+            onChange={(e) => this.props.handleValue(e.target.value)
+           }
           />
           <span className="text-danger">{this.props.nameError}</span>
         </>

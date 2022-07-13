@@ -4,7 +4,7 @@ import Button from "./Button";
 export default class extends Component {
   render() {
     return (
-      <div className="d-flex justify-content-between mt-2" key={this.props.key}>
+      <div className="d-flex justify-content-between mt-2" >
         <h5>{this.props.item}</h5>
         <Button
           handleAction={this.props.handleAction}

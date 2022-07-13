@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Form from "../../Shared/Form";
+import Form from "./Form";
 import "./todolist.css";
 import Card from "../../Shared/Card";
 
@@ -26,21 +26,37 @@ export default class TodoList extends Component {
     e.preventDefault();
     if (this.state.task === "") {
       console.log("Error");
-      this.setState({error: "El campo es requerido"});
+      this.setState({ error: "El campo es requerido" });
     } else {
-      this.setState({error: ""});
+      this.setState({ task: "" });
+      this.setState({ error: "" });
       console.log(this.state.tasks);
       this.setState({ tasks: [...this.state.tasks, this.state.task] });
     }
   }
-  borrarTarea(index) {
-    this.state.tasks.splice(index, 1);
+  borrarTarea(removetask) {
+    let newArray = this.state.tasks.filter((task) => {
+      return task != removetask;
+    });
     console.log(this.state.tasks);
-    this.setState({ tasks: [...this.state.tasks] });
+    this.setState({ tasks: newArray });
   }
-  TodoList;
-  form;
-  input;
+
+  validarTarea() {
+    let isvalid = this.setState.tasks.some((task) => task == this.state.task);
+    let isempty = this.state.task === "" ? true : false;
+    let validation = true;
+    if (isempty) {
+      validation = false;
+      console.log("Error");
+      this.setState({ error: "El campo es requerido" });
+    } else if (!isvalid) {
+      validation = false;
+      this.setState({ error: "Esta tarea ya esta escrita" });
+    }
+    return validation;
+  }
+
   render() {
     return (
       <div className="App App-header">
@@ -53,21 +69,19 @@ export default class TodoList extends Component {
               handleValue={this.handleTaskChange}
               nameError={this.state.error}
               handleAction={this.agregarTask}
+              valueinput={this.state.task}
               labelButton="Agregar"
               styles="btn btn-primary mb-3"
-
             ></Form>
             {this.state.tasks.map((printTask, index) => (
               <Card
                 key={index}
                 item={printTask}
-                handleAction={() => this.borrarTarea(index)}
+                handleAction={() => this.borrarTarea(printTask)}
                 labelButton="Borrar"
                 styles="btn btn-danger ms-5"
               />
             ))}
-
-            
           </div>
         </div>
       </div>
