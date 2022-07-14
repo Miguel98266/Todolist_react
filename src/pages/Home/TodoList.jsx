@@ -24,14 +24,11 @@ export default class TodoList extends Component {
 
   agregarTask(e) {
     e.preventDefault();
-    if (this.state.task === "") {
-      console.log("Error");
-      this.setState({ error: "El campo es requerido" });
-    } else {
-      this.setState({ task: "" });
+    if (this.validarTarea()) {
       this.setState({ error: "" });
       console.log(this.state.tasks);
       this.setState({ tasks: [...this.state.tasks, this.state.task] });
+      this.setState({ task: "" });
     }
   }
   borrarTarea(removetask) {
@@ -43,15 +40,22 @@ export default class TodoList extends Component {
   }
 
   validarTarea() {
-    let isvalid = this.setState.tasks.some((task) => task == this.state.task);
+    let isvalid = true;
+
+    if (this.state.tasks.length > 0) {
+      let result = this.state.tasks.includes(this.state.task);
+      isvalid = !result;
+    }
     let isempty = this.state.task === "" ? true : false;
     let validation = true;
+    
     if (isempty) {
       validation = false;
-      console.log("Error");
+      console.log("Error campo vacio");
       this.setState({ error: "El campo es requerido" });
     } else if (!isvalid) {
       validation = false;
+      console.log("Error  escrita");
       this.setState({ error: "Esta tarea ya esta escrita" });
     }
     return validation;
